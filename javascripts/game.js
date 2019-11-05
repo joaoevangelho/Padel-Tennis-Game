@@ -13,24 +13,53 @@ class Game {
         this.controls.setControlsPlayer2();
     }
 
+    clearAll() {
+        this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
+    }
+
+    collisionDetection() {
+
+    }
+
+    update() {
+        const context = this.context;
+        const width = this.width;
+        const height = this.height;
+        const ball = this.ball
+        context.clearRect(0, 0, this.width, this.height);
+
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+
+        if (ball.y + ball.vy > height - 100 || ball.y + ball.vy < 100) {
+            ball.vy *= -1;
+        }
+        if (ball.x + ball.vx > width || ball.x + ball.vx < 0) {
+            ball.vx *= -1;
+        }
+
+    }
+
+
     start() {
         this.drawEverything();
         this.controls.setControlsPlayer1();
         this.controls.setControlsPlayer2();
-        //this.ball.move();
+
+
     }
 
-    drawEverything() {
-        this.clearAll();
+    drawEverything(timestamp) {
+        this.update();
+        //this.clearAll();
         this.background.draw();
         this.ball.draw();
         this.player.draw();
         this.player2.draw();
+        window.requestAnimationFrame(timestamp => this.drawEverything(timestamp));
     }
 
-    clearAll() {
-        this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
-    }
+
 }
 
 

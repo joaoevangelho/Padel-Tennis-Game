@@ -11,19 +11,19 @@ class Controls {
             switch (event.keyCode) {
                 case 65:
                     this.game.player.moveLeft();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
                 case 87:
                     this.game.player.moveUp();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
                 case 68:
                     this.game.player.moveRight();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
                 case 83:
                     this.game.player.moveDown();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
             }
         });
@@ -36,19 +36,19 @@ class Controls {
             switch (event.keyCode) {
                 case 37:
                     this.game.player2.moveLeft();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
                 case 38:
                     this.game.player2.moveUp();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
                 case 39:
                     this.game.player2.moveRight();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
                 case 40:
                     this.game.player2.moveDown();
-                    this.game.drawEverything();
+                    //this.game.drawEverything();
                     break;
             }
         });

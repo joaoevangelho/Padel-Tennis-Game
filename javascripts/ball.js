@@ -5,10 +5,10 @@ class Ball {
         this.$canvas = game.$canvas;
         this.img = new Image();
         this.radius = 5;
-        this.x = 150;
-        this.y = 150;
-        this.vx = 10;
-        this.vy = 10;
+        this.x = this.game.player.positionX + 5;
+        this.y = this.game.player.positionY + 5;
+        this.vx = 5;
+        this.vy = 2;
         this.size = this.radius;
         this.img.src = "./../images/bola.png";
     }
@@ -21,20 +21,30 @@ class Ball {
         this.context.fill();
         this.context.closePath();
         */
+
         this.context.drawImage(this.img, 0, 0, 500, 500, this.x, this.y, 15, 15);
         this.context.restore();
 
     }
 
+}
+/*
     move() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.y + this.vy > $canvas.height || this.y + this.vy < 0) {
+        console.log('ball doesnt work')
+        this.context.clearRect(0, 0, this.game.width, this.game.height - 100);
+        this.game.drawEverything();
+        this.draw();
+        if (this.y + this.vy > this.game.height - 100 || this.y + this.vy < 100) {
             this.vy *= -1;
         }
-        if (this.x + this.vx > $canvas.width || this.x + this.vx < 0) {
+        if (this.x + this.vx > this.game.width || this.x + this.vx < 0) {
             this.vx *= -1;
         }
-        this.context.clearRect(0, 0, $canvas.width, $canvas.height);
+        this.x += this.vx;
+        this.y += this.vy;
+
+        //setInterval(this.move, 100)
+
+
     }
-}
+*/

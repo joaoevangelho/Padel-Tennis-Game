@@ -4,12 +4,16 @@ class Background {
         this.height = game.height
         this.width = game.width
         this.context = game.context
-
+        this.img = new Image()
+        this.img.src = "./../images/fake grass.png";
     }
     draw() {
         //court grass
-        this.context.fillStyle = 'green';
-        this.context.fillRect(0, 0, 800, 500);
+        //this.context.fillStyle = 'green';
+        //this.context.fillRect(0, 0, 800, 500);
+        this.context.drawImage(this.img, 0, 0, 800, 500);
+        this.context.restore();
+
 
         //court outside lines
         this.context.strokeStyle = 'white';

@@ -31,5 +31,4 @@ class Player {
     moveLeft() {
         this.positionX > 0 ? this.positionX -= 5 : this.positionX
     }
-
 }
