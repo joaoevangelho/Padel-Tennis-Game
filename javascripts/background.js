@@ -7,7 +7,6 @@ class Background {
 
     }
     draw() {
-        console.log('hello')
         //court grass
         this.context.fillStyle = 'green';
         this.context.fillRect(0, 0, 800, 500);
@@ -43,8 +42,6 @@ class Background {
         this.context.shadowColor = 'black';
         this.context.stroke();
         this.context.closePath();
-
+        this.context.shadowColor = 'transparent';
     }
-
-
 }

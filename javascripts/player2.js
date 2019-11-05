@@ -1,14 +1,15 @@
-class Player {
+
+class Player2 {
     constructor(game, positionX, positionY) {
         this.game = game;
         this.context = game.context
         this.img = new Image();
+        this.size = this.radius
+        this.img.src = "./../images/marioLeft.png";
         this.positionY = positionY;
         this.positionX = positionX;
         this.vx = 0;
         this.vy = 0;
-        this.size = this.radius
-        this.img.src = "./../images/marioRight.png";
     }
 
     draw() {
@@ -25,11 +26,11 @@ class Player {
     }
 
     moveRight() {
-        this.positionX < 350 ? this.positionX += 5 : this.positionX
+        this.positionX > 350 ? this.positionX += 5 : this.positionX
     }
 
     moveLeft() {
-        this.positionX > 0 ? this.positionX -= 5 : this.positionX
+        this.positionX > 400 ? this.positionX -= 5 : this.positionX
     }
 
 }
