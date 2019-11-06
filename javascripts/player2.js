@@ -1,10 +1,9 @@
-
+/*
 class Player2 {
     constructor(game, positionX, positionY) {
         this.game = game;
         this.context = game.context
         this.img = new Image();
-        this.size = this.radius
         this.img.src = "./../images/marioLeft.png";
         this.positionY = positionY;
         this.positionX = positionX;
@@ -34,3 +33,4 @@ class Player2 {
     }
 
 }
+*/

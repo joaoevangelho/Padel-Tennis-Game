@@ -44,6 +44,7 @@ class Controls {
                     break;
                 case 39:
                     this.game.player2.moveRight();
+
                     //this.game.drawEverything();
                     break;
                 case 40:

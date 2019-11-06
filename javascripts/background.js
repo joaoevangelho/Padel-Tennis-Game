@@ -15,6 +15,28 @@ class Background {
         this.context.restore();
 
 
+        //court outside structure
+        this.context.strokeStyle = 'black';
+        this.context.lineWidth = 8;
+        this.context.beginPath();
+        this.context.moveTo(100, 100);
+        this.context.lineTo(370, 100);
+        this.context.moveTo(430, 100);
+        this.context.lineTo(700, 100);
+        this.context.moveTo(700, 100);
+        this.context.lineTo(700, 400);
+        this.context.moveTo(700, 400);
+        this.context.lineTo(430, 400);
+        this.context.moveTo(370, 400);
+        this.context.lineTo(100, 400);
+        this.context.moveTo(100, 400);
+        this.context.lineTo(100, 100);
+        this.context.shadowBlur = 20;
+        this.context.shadowColor = 'black';
+        this.context.stroke();
+        this.context.closePath();
+
+
         //court outside lines
         this.context.strokeStyle = 'white';
         this.context.lineWidth = 2;
@@ -42,10 +64,10 @@ class Background {
         this.context.moveTo(400, 100);
         this.context.lineTo(400, 400);
         //net shade
-        this.context.shadowBlur = 5;
+        this.context.shadowBlur = 10;
         this.context.shadowColor = 'black';
         this.context.stroke();
         this.context.closePath();
-        this.context.shadowColor = 'transparent';
+        //this.context.shadowColor = 'transparent';
     }
 }
