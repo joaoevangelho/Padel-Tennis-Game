@@ -12,8 +12,7 @@ class Game {
         this.controls = new Controls(this);
         this.controls.setControlsPlayer1();
         this.controls.setControlsPlayer2();
-        this.score = 0;
-
+        this.playArray = []
     }
 
     clearAll() {
@@ -34,19 +33,29 @@ class Game {
 
         if (ballBottom === playerTop) {
             if (!(ballRight < playerLeft || ballLeft > playerRight)) {
-                console.log('COLLIDED TOP');
+                //console.log('COLLIDED TOP');
+                ball.vx += 0.4;
+                ball.vx *= -1;
+                this.playArray = [];
+                this.playArray.push(player);
             }
         }
         if (ballTop === playerBottom) {
             if (!(ballRight < playerLeft || ballLeft > playerRight)) {
                 console.log('COLLIDED BOTTOM');
+                ball.vx += 1.2;
+                ball.vx *= -1;
+                this.playArray = [];
+                this.playArray.push(player);
             }
         }
         if (ballLeft === playerRight) {
             if (!(ballTop > playerBottom || ballBottom < playerTop)) {
-                console.log('COLLIDED RIGHT');
-                ball.vx += 0.2;
+                //console.log('COLLIDED RIGHT');
+                ball.vx += 1.2;
                 ball.vx *= -1;
+                this.playArray = [];
+                this.playArray.push(player);
             }
         }
         if (ballRight > playerLeft && ballRight < playerRight) {
@@ -54,8 +63,30 @@ class Game {
                 console.log('COLLIDED LEFT');
                 ball.vx += 0.5;
                 ball.vx *= -1;
+                this.playArray = [];
+                this.playArray.push(player);
             }
         }
+
+    }
+    score() {
+        //this.playArray.push(checkColisionWithPlayers());
+        console.log(this.playArray);
+    }
+
+
+    reset() {
+        this.player = new Player(this, 100, 200, 'left');
+        this.player2 = new Player(this, 650, 200, 'right');
+        this.ball = new Ball(this);
+    }
+
+
+    start() {
+        this.reset();
+        this.drawEverything();
+        this.controls.setControlsPlayer1();
+        this.controls.setControlsPlayer2();
     }
 
     update() {
@@ -67,33 +98,45 @@ class Game {
 
         this.checkColisionWithPlayers(this.ball, this.player);
         this.checkColisionWithPlayers(this.ball, this.player2);
+        //console.log(this.playArray);
 
 
         ball.x += ball.vx;
         ball.y += ball.vy;
 
-        if (ball.y + ball.vy > height - 100 || ball.y + ball.vy < 100) {
+        if (ball.y + ball.vy > height - 100 || ball.y + ball.vy < 100) { //bola tocar nas paredes cima e baixo
             ball.vy *= -1;
         }
-        if (ball.x + ball.vx > width - 100 || ball.x + ball.vx < 100) {
+        if (ball.x + ball.vx > width - 100 || ball.x + ball.vx < 100) { //bola tocar nas paredes esquerda e direita
             ball.vx *= -1;
+            this.playArray.push('wall');
         }
 
-    }
+        if (ball.x < 400 && !this.ball.isLeft) {
+            //console.log("tou na esquerda!");
+            this.ball.isLeft = true;
+            this.ball.isRight = false;
+            this.playArray.push('net');
 
-    score() {
-        [
-            P1 = [0, 15, 30, 40, 'GAME', 'SET'],
-            P2 = [0, 15, 30, 40, 'GAME', 'SET']
-        ]
+        } else if (ball.x > 400 && !this.ball.isRight) {
+            //console.log("tou na direita!");
+            this.ball.isLeft = false;
+            this.ball.isRight = true;
+            this.playArray.push('net');
+        }
 
-    }
+        if (typeof (this.playArray[0]) === 'object' && this.playArray[1] === 'net' && this.playArray[2] === 'wall' && this.playArray[3] === 'net') {
+            if (this.playArray[0].side === 'left') {
+                this.playArray[0].game.scoreboard.player1Score[0]++;
+            } else {
+                this.playArray[0].game.scoreboard.player2Score[0]++;
+            }
+            console.log(this.scoreboard);
 
-
-    start() {
-        this.drawEverything();
-        this.controls.setControlsPlayer1();
-        this.controls.setControlsPlayer2();
+            this.playArray = [];
+            console.log("PONTO!!!!!!");
+            this.reset()
+        }
     }
 
 

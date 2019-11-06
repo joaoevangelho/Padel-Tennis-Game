@@ -3,6 +3,10 @@ class Player {
         this.game = game;
         this.context = game.context
         this.img = new Image();
+        //this.imgUp = new Image()
+        //this.imgDown = new Image()
+        //this.imgLeft = new Image()
+        //this.imgRight = new Image()
         this.positionY = positionY;
         this.positionX = positionX;
         this.vx = 0;
@@ -12,6 +16,7 @@ class Player {
         this.yMax = 340;
         this.pointsWon = 0;
         this.gamesWon = 0;
+        this.side = side;
         if (side === 'left') {
             this.xMin = 100;
             this.xMax = 340;
