@@ -12,6 +12,7 @@ class Game {
         this.controls = new Controls(this);
         this.controls.setControlsPlayer1();
         this.controls.setControlsPlayer2();
+        this.score = 0;
 
     }
 
@@ -80,7 +81,13 @@ class Game {
 
     }
 
- 
+    score() {
+        [
+            P1 = [0, 15, 30, 40, 'GAME', 'SET'],
+            P2 = [0, 15, 30, 40, 'GAME', 'SET']
+        ]
+
+    }
 
 
     start() {
@@ -97,6 +104,7 @@ class Game {
         this.ball.draw();
         this.player.draw();
         this.player2.draw();
+        this.scoreboard.drawScoreBoard();
         window.requestAnimationFrame(timestamp => this.drawEverything(timestamp));
     }
 

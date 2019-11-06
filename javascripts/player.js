@@ -10,11 +10,13 @@ class Player {
         this.size = 60;
         this.yMin = 100;
         this.yMax = 340;
+        this.pointsWon = 0;
+        this.gamesWon = 0;
         if (side === 'left') {
             this.xMin = 100;
             this.xMax = 340;
             this.img.src = "./../images/marioRight.png";
-        } else {
+        } else if (side === 'right') {
             this.xMin = 400;
             this.xMax = 640;
             this.img.src = "./../images/marioLeft.png";
@@ -25,8 +27,8 @@ class Player {
     draw() {
         this.context.save();
         this.context.drawImage(this.img, this.positionX, this.positionY, 60, 60);
-        this.context.strokeStyle = 'white';
-        this.context.strokeRect(this.positionX, this.positionY, 60, 60);
+        //this.context.strokeStyle = 'white';
+        //this.context.strokeRect(this.positionX, this.positionY, 60, 60);
         this.context.restore();
     }
 
@@ -45,4 +47,6 @@ class Player {
     moveLeft() {
         this.positionX > this.xMin ? this.positionX -= 5 : this.positionX
     }
+
+
 }
