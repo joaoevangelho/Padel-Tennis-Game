@@ -5,6 +5,7 @@ const startBtn = document.querySelector("#start-button")
 
 window.addEventListener('load', () => {
     startBtn.addEventListener('click', () => {
+        game.clearAll();
         game.start();
         game.drawEverything();
     });

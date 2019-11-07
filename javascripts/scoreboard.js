@@ -13,7 +13,7 @@ class ScoreBoard {
         context.font = '18px monospace';
         context.fillStyle = '#fff';
 
-        context.fillText(`${this.player1Score[0]} || ${this.player2Score[0]}`, 20, 40);
+        context.fillText(`${this.player1Score[0]} - ${this.player2Score[0]}`, 20, 40);
 
     }
 
