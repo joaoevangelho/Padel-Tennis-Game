@@ -10,6 +10,7 @@ class Player2 {
         this.vx = 0;
         this.vy = 0;
     }
+}
 
     draw() {
         this.context.drawImage(this.img, this.positionX, this.positionY, 60, 60);
@@ -32,5 +33,4 @@ class Player2 {
         this.positionX > 400 ? this.positionX -= 5 : this.positionX
     }
 
-}
 */

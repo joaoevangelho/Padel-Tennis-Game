@@ -5,7 +5,7 @@ class Game {
         this.height = $canvas.height;
         this.width = $canvas.width;
         this.player = new Player(this, 100, 200, 'left');
-        this.player2 = new Player(this, 650, 200, 'right');
+        this.player2 = new Player(this, 500, 200, 'right');
         this.background = new Background(this);
         this.ball = new Ball(this);
         this.scoreboard = new ScoreBoard(this);
@@ -70,14 +70,13 @@ class Game {
 
     }
     score() {
-        //this.playArray.push(checkColisionWithPlayers());
         console.log(this.playArray);
     }
 
 
     reset() {
-        this.player = new Player(this, 100, 200, 'left');
-        this.player2 = new Player(this, 650, 200, 'right');
+        this.player = new Player(this, 120, 200, 'left');
+        this.player2 = new Player(this, 630, 200, 'right');
         this.ball = new Ball(this);
     }
 
@@ -96,9 +95,12 @@ class Game {
         const ball = this.ball
         context.clearRect(0, 0, this.width, this.height);
 
+        this.player.update();
+        this.player2.update();
         this.checkColisionWithPlayers(this.ball, this.player);
         this.checkColisionWithPlayers(this.ball, this.player2);
         //console.log(this.playArray);
+
 
 
         ball.x += ball.vx;
@@ -134,7 +136,6 @@ class Game {
             console.log(this.scoreboard);
 
             this.playArray = [];
-            console.log("PONTO!!!!!!");
             this.reset()
         }
     }
@@ -153,6 +154,3 @@ class Game {
 
 
 }
-
-
-//acho que tenho de fazer uma função update everything. neste momento tenho um draw everything, que esta a desenhar o player, mas nao esta a chamar a função que o faz mexer

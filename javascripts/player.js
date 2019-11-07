@@ -23,7 +23,7 @@ class Player {
             this.img.src = "./../images/marioRight.png";
         } else if (side === 'right') {
             this.xMin = 400;
-            this.xMax = 640;
+            this.xMax = 650;
             this.img.src = "./../images/marioLeft.png";
         }
 
@@ -37,21 +37,14 @@ class Player {
         this.context.restore();
     }
 
-    moveUp() {
-        this.positionY > this.yMin ? this.positionY -= 5 : this.positionY;
-    }
 
-    moveDown() {
-        this.positionY < this.yMax ? this.positionY += 5 : this.positionY
-    }
+    update() {
+        let futureY = this.positionY + this.vy;
+        (futureY > this.yMin && futureY < this.yMax) ? this.positionY += this.vy: this.vy = 0;
 
-    moveRight() {
-        this.positionX < this.xMax ? this.positionX += 5 : this.positionX
-    }
+        let futureX = this.positionX + this.vx;
 
-    moveLeft() {
-        this.positionX > this.xMin ? this.positionX -= 5 : this.positionX
+        (futureX > this.xMin && futureX < this.xMax) ? this.positionX += this.vx: this.vx = 0;
     }
-
 
 }
