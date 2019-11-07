@@ -15,6 +15,4 @@ class PlayerWinsGame {
     }
 
 
-    /* resetGame() {
-      this.game = new Game ($canvas);*/
 }

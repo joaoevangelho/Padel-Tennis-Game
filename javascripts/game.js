@@ -17,6 +17,7 @@ class Game {
         this.controls.setControlsPlayer1();
         this.controls.setControlsPlayer2();
         this.playArray = []
+        this.gameIsRunning = false;
     }
 
     clearAll() {
@@ -37,7 +38,7 @@ class Game {
 
         if (ballBottom === playerTop) {
             if (!(ballRight < playerLeft || ballLeft > playerRight)) {
-                ball.vx = 1.2;
+                ball.vx = 2;
                 ball.vy *= -1;
                 this.playArray = [];
                 this.playArray.push(player);
@@ -46,7 +47,7 @@ class Game {
         }
         if (ballTop === playerBottom) {
             if (!(ballRight < playerLeft || ballLeft > playerRight)) {
-                ball.vx = 1.2;
+                ball.vx = 2;
                 ball.vy *= -1;
                 this.playArray = [];
                 this.playArray.push(player);
@@ -55,7 +56,7 @@ class Game {
         }
         if (ballLeft === playerRight) {
             if (!(ballTop > playerBottom || ballBottom < playerTop)) {
-                ball.vx += 1.8;
+                ball.vx += 3;
                 ball.vx *= -1;
                 this.playArray = [];
                 this.playArray.push(player);
@@ -64,7 +65,7 @@ class Game {
         }
         if (ballRight > playerLeft && ballRight < playerRight) {
             if (!(ballTop > playerBottom || ballBottom < playerTop)) {
-                ball.vx += 1.8;
+                ball.vx += 3;
                 ball.vx *= -1;
                 this.playArray = [];
                 this.playArray.push(player);
@@ -82,12 +83,16 @@ class Game {
         this.player = new Player(this, 120, 200, 'left');
         this.player2 = new Player(this, 630, 200, 'right');
         this.ball = new Ball(this);
+        this.gameIsRunning = true;
+        if (this.animationFrameId === false) {
+            this.loop()
+        }
     }
 
 
     start() {
-        this.reset();
-        this.drawEverything();
+        this.reset()
+        this.loop()
         this.controls.setControlsPlayer1();
         this.controls.setControlsPlayer2();
     }
@@ -134,7 +139,6 @@ class Game {
             } else {
                 this.playArray[0].game.scoreboard.player2Score[0]++;
             }
-            // console.log(this.scoreboard);
 
             this.playArray = [];
             this.reset()
@@ -143,41 +147,41 @@ class Game {
     }
 
     playerWonTheGame() {
-        console.log("this.scoreboard.player1Score", this.scoreboard.player1Score[0])
-        console.log("this.scoreboard.player2Score", this.scoreboard.player2Score[0])
-        if (this.scoreboard.player1Score[0] === 3 && this.scoreboard.player2Score[0] < 3) {
+
+        if (this.scoreboard.player1Score[0] === 4 && this.scoreboard.player2Score[0] < 4) {
             this.clearAll();
+            this.gameIsRunning = false;
             this.playerwins.drawplayerWins();
             cheering.play();
-            console.log('player1 won')
-        } else if (this.scoreboard.player2Score[0] === 3 && this.scoreboard.player1Score[0] < 3) {
+        } else if (this.scoreboard.player2Score[0] === 4 && this.scoreboard.player1Score[0] < 4) {
             this.clearAll();
+            this.gameIsRunning = false;
             this.playerwins.drawplayerWins();
             cheering.play();
-            console.log('player1 won')
         }
     }
 
 
 
     drawEverything(timestamp) {
-        this.update();
-        //this.clearAll();
+        this.clearAll();
         this.background.draw();
         this.ball.draw();
         this.player.draw();
         this.player2.draw();
         this.scoreboard.drawScoreBoard();
         this.playerWonTheGame();
-        window.requestAnimationFrame(timestamp => this.drawEverything(timestamp));
     }
 
-    /* this.drawEverything()
-         for (let i = this.obstacles.length - 1; i >= 0; i--) {
-       if (this.player.checkCollision(this.player, this.obstacles[i])) {
-          console.log("COLLISIONN")
-           this.end = true;
-           this.time.stopClick()
-      } */
+    loop(timestamp) {
+        this.update();
+        this.drawEverything(timestamp);
+        // if (this.gameIsRunning) {
+        this.animationFrameId = window.requestAnimationFrame(timestamp => this.loop(timestamp));
+        if (this.gameIsRunning === false) {
+            window.cancelAnimationFrame(this.animationFrameId)
+        }
+        // }
+    }
 
 }
