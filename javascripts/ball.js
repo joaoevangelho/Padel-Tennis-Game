@@ -7,8 +7,8 @@ class Ball {
         this.radius = 5;
         this.x = 300 //this.game.player.positionX + 5;
         this.y = 300 //this.game.player.positionY + 5;
-        this.vx = 2;
-        this.vy = 2;
+        this.vx = 4;
+        this.vy = 3;
         this.isLeft = true;
         this.isRight = false;
         //this.img.src = "./../images/bola.png";

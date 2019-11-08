@@ -25,9 +25,9 @@ class Game {
     }
 
     checkColisionWithPlayers(ball, player) {
-        let ballTop = ball.y - ball.radius; // Y
+        let ballTop = ball.y; // Y
         let ballBottom = ball.y + ball.radius; // Y
-        let ballLeft = ball.x - ball.radius; // X
+        let ballLeft = ball.x; // X
         let ballRight = ball.x + ball.radius; // X
 
         let playerTop = player.positionY;
@@ -35,43 +35,26 @@ class Game {
         let playerLeft = player.positionX;
         let playerRight = player.positionX + player.size; // 60 = player.width;
 
+        if (
+            ballBottom > playerTop && ballTop < playerBottom &&
+            ballRight > playerLeft && ballLeft < playerRight
+        ) {
+            // ball.vx = 2;
+            // ball.vx *= -1;
+            // ball.vy *= -1;
+            this.playArray = [];
+            this.playArray.push(player);
+            swoosh.play();
 
-        // if (ballBottom === playerTop) {
-        //     if (!(ballRight < playerLeft || ballLeft > playerRight)) {
-        //         ball.vx = 2;
-        //         ball.vy *= -1;
-        //         this.playArray = [];
-        //         this.playArray.push(player);
-        //         swoosh.play();
-        //     }
-        // }
-        // if (ballTop === playerBottom) {
-        //     if (!(ballRight < playerLeft || ballLeft > playerRight)) {
-        //         ball.vx = 2;
-        //         ball.vy *= -1;
-        //         this.playArray = [];
-        //         this.playArray.push(player);
-        //         swoosh.play();
-        //     }
-        // }
-        // if (ballLeft === playerRight) {
-        //     if (!(ballTop > playerBottom || ballBottom < playerTop)) {
-        //         ball.vx += 3;
-        //         ball.vx *= -1;
-        //         this.playArray = [];
-        //         this.playArray.push(player);
-        //         swoosh.play();
-        //     }
-        // }
-        if (ballRight > playerLeft && ballLeft < playerRight) {
-            if (!(ballTop > playerBottom || ballBottom < playerTop)) {
-                ball.vx += 3;
-                ball.vx *= -1;
-                this.playArray = [];
-                this.playArray.push(player);
-                swoosh.play();
-            }
+
+            const yDirectionMultiplier = Math.abs(ballTop - playerTop) > Math.abs(ballBottom - playerBottom) ? 1 : -1;
+            const xDirectionMultiplier = Math.abs(ballLeft - playerLeft) > Math.abs(ballRight - playerRight) ? 1 : -1;
+            // console.log(yProximity, xProximity);
+
+            ball.vx = Math.abs(ball.vx) * xDirectionMultiplier;
+            ball.vy = Math.abs(ball.vy) * yDirectionMultiplier;
         }
+
     }
     score() {
         console.log(this.playArray);

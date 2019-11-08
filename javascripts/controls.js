@@ -5,7 +5,7 @@ class Controls {
 
     setControlsPlayer1() {
         window.addEventListener('keydown', event => {
-
+            // console.log(1);
             event.preventDefault();
 
             switch (event.keyCode) {
@@ -47,27 +47,30 @@ class Controls {
     }
 
     setControlsPlayer2() {
+        // const speed = this.player.speed;
+        // const speed = 2;
+        const speed = 2;
         window.addEventListener('keydown', event => {
-
+            console.log(2);
             event.preventDefault();
 
             switch (event.keyCode) {
                 case 37:
-                    this.game.player2.vx = -2
+                    this.game.player2.vx = -1 * speed
                     //this.game.player2.moveLeft();
                     console.log(this.game.player2.vx, this.game.player2.positionX);
 
                     break;
                 case 38:
-                    this.game.player2.vy = -2
+                    this.game.player2.vy = -1 * speed;
                     //this.game.player2.moveUp();
                     break;
                 case 39:
-                    this.game.player2.vx = 2
+                    this.game.player2.vx = speed
                     //this.game.player2.moveRight();
                     break;
                 case 40:
-                    this.game.player2.vy = 2
+                    this.game.player2.vy = speed
                     //this.game.player2.moveDown();
                     break;
             }
