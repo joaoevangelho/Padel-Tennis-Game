@@ -20,11 +20,11 @@ class Player {
         if (side === 'left') {
             this.xMin = 100;
             this.xMax = 340;
-            this.img.src = "./../images/marioRight.png";
+            this.img.src = "./../images/mario-player.png";
         } else if (side === 'right') {
             this.xMin = 400;
             this.xMax = 650;
-            this.img.src = "./../images/marioLeft.png";
+            this.img.src = "./../images/luigi-player.png";
         }
 
     }

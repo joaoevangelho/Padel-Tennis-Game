@@ -1,5 +1,5 @@
 const swoosh = new Audio("./../sound effects/tennisserve.mp3");
-const cheering = new Audio("./../sound effects/cheering.mp3")
+const cheering = new Audio("./../sound effects/cheering.mp3");
 
 class Game {
     constructor($canvas) {
@@ -7,8 +7,8 @@ class Game {
         this.context = $canvas.getContext("2d");
         this.height = $canvas.height;
         this.width = $canvas.width;
-        this.player = new Player(this, 100, 200, 'left');
-        this.player2 = new Player(this, 500, 200, 'right');
+        this.player = new Player(this, 100, 200, "left");
+        this.player2 = new Player(this, 500, 200, "right");
         this.background = new Background(this);
         this.ball = new Ball(this);
         this.scoreboard = new ScoreBoard(this);
@@ -16,7 +16,7 @@ class Game {
         this.playerwins = new PlayerWinsGame(this);
         this.controls.setControlsPlayer1();
         this.controls.setControlsPlayer2();
-        this.playArray = []
+        this.playArray = [];
         this.gameIsRunning = false;
     }
 
@@ -33,28 +33,37 @@ class Game {
         let playerTop = player.positionY;
         let playerBottom = player.positionY + player.size; // 60 = player.height;
         let playerLeft = player.positionX;
-        let playerRight = player.positionX + player.size; // 60 = player.width
+        let playerRight = player.positionX + player.size; // 60 = player.width;
 
 
-        if (ballBottom === playerTop) {
-            if (!(ballRight < playerLeft || ballLeft > playerRight)) {
-                ball.vx = 2;
-                ball.vy *= -1;
-                this.playArray = [];
-                this.playArray.push(player);
-                swoosh.play();
-            }
-        }
-        if (ballTop === playerBottom) {
-            if (!(ballRight < playerLeft || ballLeft > playerRight)) {
-                ball.vx = 2;
-                ball.vy *= -1;
-                this.playArray = [];
-                this.playArray.push(player);
-                swoosh.play();
-            }
-        }
-        if (ballLeft === playerRight) {
+        // if (ballBottom === playerTop) {
+        //     if (!(ballRight < playerLeft || ballLeft > playerRight)) {
+        //         ball.vx = 2;
+        //         ball.vy *= -1;
+        //         this.playArray = [];
+        //         this.playArray.push(player);
+        //         swoosh.play();
+        //     }
+        // }
+        // if (ballTop === playerBottom) {
+        //     if (!(ballRight < playerLeft || ballLeft > playerRight)) {
+        //         ball.vx = 2;
+        //         ball.vy *= -1;
+        //         this.playArray = [];
+        //         this.playArray.push(player);
+        //         swoosh.play();
+        //     }
+        // }
+        // if (ballLeft === playerRight) {
+        //     if (!(ballTop > playerBottom || ballBottom < playerTop)) {
+        //         ball.vx += 3;
+        //         ball.vx *= -1;
+        //         this.playArray = [];
+        //         this.playArray.push(player);
+        //         swoosh.play();
+        //     }
+        // }
+        if (ballRight > playerLeft && ballLeft < playerRight) {
             if (!(ballTop > playerBottom || ballBottom < playerTop)) {
                 ball.vx += 3;
                 ball.vx *= -1;
@@ -63,105 +72,112 @@ class Game {
                 swoosh.play();
             }
         }
-        if (ballRight > playerLeft && ballRight < playerRight) {
-            if (!(ballTop > playerBottom || ballBottom < playerTop)) {
-                ball.vx += 3;
-                ball.vx *= -1;
-                this.playArray = [];
-                this.playArray.push(player);
-                swoosh.play();
-            }
-        }
-
     }
     score() {
         console.log(this.playArray);
     }
 
+    restart() {
+        this.player = new Player(this, 100, 200, "left");
+        this.player2 = new Player(this, 500, 200, "right");
+        this.background = new Background(this);
+        this.ball = new Ball(this);
+        this.scoreboard = new ScoreBoard(this);
+        this.controls = new Controls(this);
+        this.playerwins = new PlayerWinsGame(this);
+        this.controls.setControlsPlayer1();
+        this.controls.setControlsPlayer2();
+        this.playArray = [];
+        this.gameIsRunning = false;
+    }
 
     reset() {
-        this.player = new Player(this, 120, 200, 'left');
-        this.player2 = new Player(this, 630, 200, 'right');
+        this.player = new Player(this, 120, 200, "left");
+        this.player2 = new Player(this, 630, 200, "right");
         this.ball = new Ball(this);
         this.gameIsRunning = true;
         if (this.animationFrameId === false) {
-            this.loop()
+            this.loop();
         }
     }
 
-
     start() {
-        this.reset()
-        this.loop()
+        this.reset();
+        this.loop();
         this.controls.setControlsPlayer1();
         this.controls.setControlsPlayer2();
     }
-
 
     update() {
         const context = this.context;
         const width = this.width;
         const height = this.height;
-        const ball = this.ball
+        const ball = this.ball;
         context.clearRect(0, 0, this.width, this.height);
         this.player.update();
         this.player2.update();
         this.checkColisionWithPlayers(this.ball, this.player);
         this.checkColisionWithPlayers(this.ball, this.player2);
 
-
-
         ball.x += ball.vx;
         ball.y += ball.vy;
 
-        if (ball.y + ball.vy > height - 100 || ball.y + ball.vy < 100) { //bola tocar nas paredes cima e baixo
+        if (ball.y + ball.vy > height - 100 || ball.y + ball.vy < 100) {
+            //bola tocar nas paredes cima e baixo
             ball.vy *= -1;
         }
-        if (ball.x + ball.vx > width - 100 || ball.x + ball.vx < 100) { //bola tocar nas paredes esquerda e direita
+        if (ball.x + ball.vx > width - 100 || ball.x + ball.vx < 100) {
+            //bola tocar nas paredes esquerda e direita
             ball.vx *= -1;
-            this.playArray.push('wall');
+            this.playArray.push("wall");
         }
 
         if (ball.x < 400 && !this.ball.isLeft) {
             this.ball.isLeft = true;
             this.ball.isRight = false;
-            this.playArray.push('net');
-
+            this.playArray.push("net");
         } else if (ball.x > 400 && !this.ball.isRight) {
             this.ball.isLeft = false;
             this.ball.isRight = true;
-            this.playArray.push('net');
+            this.playArray.push("net");
         }
 
-        if (typeof (this.playArray[0]) === 'object' && this.playArray[1] === 'net' && this.playArray[2] === 'wall' && this.playArray[3] === 'net') {
-            if (this.playArray[0].side === 'left') {
+        if (
+            typeof this.playArray[0] === "object" &&
+            this.playArray[1] === "net" &&
+            this.playArray[2] === "wall" &&
+            this.playArray[3] === "net"
+        ) {
+            if (this.playArray[0].side === "left") {
                 this.playArray[0].game.scoreboard.player1Score[0]++;
             } else {
                 this.playArray[0].game.scoreboard.player2Score[0]++;
             }
 
             this.playArray = [];
-            this.reset()
+            this.reset();
         }
-
     }
 
     playerWonTheGame() {
-
-        if (this.scoreboard.player1Score[0] === 4 && this.scoreboard.player2Score[0] < 4) {
+        if (
+            this.scoreboard.player1Score[0] === 4 &&
+            this.scoreboard.player2Score[0] < 4
+        ) {
             this.clearAll();
             this.gameIsRunning = false;
-            this.playerwins.drawplayerWins();
+            this.playerwins.drawplayer1Wins();
             cheering.play();
-        } else if (this.scoreboard.player2Score[0] === 4 && this.scoreboard.player1Score[0] < 4) {
+        } else if (
+            this.scoreboard.player2Score[0] === 4 &&
+            this.scoreboard.player1Score[0] < 4
+        ) {
             this.clearAll();
             this.gameIsRunning = false;
-            this.playerwins.drawplayerWins();
+            this.playerwins.drawplayer2Wins();
             cheering.play();
         }
     }
-
-
 
     drawEverything(timestamp) {
         this.clearAll();
@@ -177,11 +193,12 @@ class Game {
         this.update();
         this.drawEverything(timestamp);
         // if (this.gameIsRunning) {
-        this.animationFrameId = window.requestAnimationFrame(timestamp => this.loop(timestamp));
+        this.animationFrameId = window.requestAnimationFrame(timestamp =>
+            this.loop(timestamp)
+        );
         if (this.gameIsRunning === false) {
-            window.cancelAnimationFrame(this.animationFrameId)
+            window.cancelAnimationFrame(this.animationFrameId);
         }
         // }
     }
-
 }
